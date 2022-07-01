@@ -56,4 +56,4 @@ As classes atualmente suportadas são:
 **>[redirecionamento da saída padrão]** - um endereço de arquivo aqui (ex: >exemplo.txt) fará o programa gerar a ficha em um arquivo com aquele nome em vez a imprimir na saída padrão.
 
 ## Exemplo
-O arquivo bruenor.txt contém um exemplo de sáida do programa, nesse caso executado com o comando `runhaskell Main.hs "Bruenor" "Mountain Dwarf" "Figther" >bruenor.txt`
+O arquivo bruenor.txt contém um exemplo de sáida do programa, nesse caso executado com o comando `runhaskell Main.hs "Bruenor" "Mountain Dwarf" "Fighter" >bruenor.txt`
