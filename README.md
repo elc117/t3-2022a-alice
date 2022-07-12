@@ -4,7 +4,7 @@ Terceiro trabalho da disciplina de Paradigmas de Programação. Alice Zeferino M
 # Gerador de personagens de Dungeons and Dragons 5e em Haskell
 A idea desse projeto é escrever um programa em haskell que gere uma ficha de personagem de 1º nível para o TTRPG Dungeons and Dragons em um arquivo texto, dado certos parâmetros recebido do usuário sobre o personagem.
 
-No momento o programa gera um resumo das características do personagem e seus ability scores, usando o método standard array, ordenados baseado no que seria útil para a classe escolhida para o personagem, e com bônus baseados na raça escolhida.
+No momento o programa gera um resumo das características do personagem e seus ability scores (gerando esses (pseudo) aleatóriamente com a regra 4d6k3) ordenados baseado no que seria útil para a classe escolhida para o personagem, e com bônus baseados na raça escolhida.
 
 Dungeons and Dragons é um tabletop roleplaying game ou jogo de interpretação de papéis criado por Gary Gygax e Dave Arneson em 1974.Esse projeto se baseia na 5ª edição do jogo, lançada em 2014, e em particular nas [Basic Rules](https://www.dndbeyond.com/sources/basic-rules), disponíveis gratuitamente online.
 
@@ -15,6 +15,8 @@ Eu queria fazer algo com Dungeons & Dragons porque o jogo é uma grande paixão 
 
 ## Processo de desenvolvimento
 Eu tive dificuldade em voltar a haskell durante esse projeto, então revisei os materias disponibilizados da disciplina e o livro Learn You a Haskell for Great Good. Durante o projeto, eu frequentemente me perguntava "como que faço X em Haskell?", nessa sitação eu iria começar a pesquisar, tanto nos materiais discutidos anteriormente como na internet em geral. Já aprendi muitos recursos que não conhecia da linguagem, como as funções unwords/words e zipWith3. Os sites StackOverflow e zvon.org tem sido particularmente úteis.
+
+Tive dificuldade implementando a geração aleatória dos Ability Scores. Tentei usar a função randomR da libary System.Random, porém essa não está disponível na plataforma Repl.it. Eu voltei para os exercícios da sexta prática, onde trabalhamos com números aleatórios, e reusei uma das funções que criei para aquela prática, meuBSD.
 
 ## Como executar o programa
 O arquivo Main.hs pode ser executado com o comando runhaskell. O comando deve incluir os argumentos que fornecem os detalhes do personagem.
