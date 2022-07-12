@@ -1,16 +1,20 @@
 import Text.Printf
 import Data.Char
 import System.Environment
+import System.CPUTime
+import Data.List
+
 
 --3 argumentos, todos strings: nome do personagem, raça do personagem, classe do personagem
---Ex: runhaskell Main.hs "Bruenor" "Mountain Dwarf" "Figther" >bruenor.txt
+--Ex: runhaskell Main.hs "Bruenor" "Mountain Dwarf" "Fighter" >bruenor.txt
 main :: IO()
 main = do
   args <- getArgs
+  seed <- getCPUTime
   let charName = args !! 0
   let charRace = upperFstLetters $ args !! 1
   let charClass = upperFstLetters $ args !! 2
-  let abilityScoreArray = raceASIs charRace (orderStatsByClass charClass generateScores)
+  let abilityScoreArray = raceASIs charRace (orderStatsByClass charClass (generateScores (fromInteger seed)))
   let abilityModArray = map (\x -> floor ((fromIntegral x-10)/2)) abilityScoreArray
 
   let summary = printf "%s %s 1\n" charRace charClass
@@ -22,10 +26,16 @@ main = do
 upperFstLetters :: String -> String
 upperFstLetters input = unwords $ map (\(x:xs) -> toUpper x : map toLower xs) $ words input
 
---gera os 6 ability scores do personagem, ordenados em ordem ascendente. No momento usa a regra standard array, ou seja, sempre os mesmos seis números, mas no futuro gostaria de implementar a geração aleatória, tipo 4d6dl1.
-generateScores :: [Int]
-generateScores = [8,10,12,13,14,15]
-
+--gera os 6 ability scores do personagem, ordenados em ordem ascendente. Simula a geração aleatória tipo 4d6k3.
+generateScores :: Int -> [Int]
+generateScores seed = sort $ sum4d6k3 $map (`mod` 6) $ take 24 $ meuBSD seed
+--soma elementos de uma lista em grupos de 4, ignorando o menor do grupo. Uma lista de 24 elementos vai retornar uma lista de 6.
+sum4d6k3 :: [Int] -> [Int]
+sum4d6k3 (x:y:z:w:rolls) = sum (tail (sort [x,y,z,w])) : sum4d6k3 rolls
+sum4d6k3 _ = []
+--Geração de números (pseudo) aleatórios
+meuBSD :: Int -> [Int]
+meuBSD n = tail (iterate (\x -> (1103515245 * x + 12345) `mod` 2^31) n)
 
 --ordena os Ability Scores do personagem baseado no que é importante para a classe celecionada
 orderStatsByClass :: String -> [Int] -> [Int]
